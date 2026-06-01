@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The World the Day You Die</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- STARS CANVAS -->
+  <canvas id="starsCanvas"></canvas>
+
+  <!-- ===== SECTION 1: LANDING ===== -->
+  <section id="section-landing" class="section section--landing active">
+    <div class="grain-overlay"></div>
+    <div class="landing__content">
+      <div class="landing__eyebrow fade-in-up" style="animation-delay:0.2s">✦ a perspective experience</div>
+      <h1 class="landing__title fade-in-up" style="animation-delay:0.5s">
+        The World<br/>
+        <em>the Day</em><br/>
+        You Die
+      </h1>
+      <p class="landing__sub fade-in-up" style="animation-delay:0.9s">
+        See the night you arrived, the life unfolding around you,<br/>
+        and the moments the world may still hold ahead.
+      </p>
+      <button class="btn-begin fade-in-up" style="animation-delay:1.3s" onclick="App.goTo('section-input')">
+        Begin your timeline ✦
+      </button>
+    </div>
+    <div class="landing__scroll-hint fade-in-up" style="animation-delay:2s">scroll or click to begin</div>
+  </section>
+
+  <!-- ===== SECTION 2: INPUT ===== -->
+  <section id="section-input" class="section section--input">
+    <div class="grain-overlay"></div>
+    <div class="input__container">
+      <div class="input__header">
+        <span class="section-label">✦ your beginning</span>
+        <h2>Tell us when you arrived.</h2>
+        <p class="input__sub">We'll reconstruct your beginning, measure your journey through time, and show you how life may continue around you—while highlighting moments you may still have ahead.</p>
+      </div>
+      <div class="input__form" id="inputForm">
+        <div class="field-row">
+          <div class="field">
+            <label>Your name</label>
+            <input type="text" id="userName" placeholder="First name" autocomplete="off" />
+          </div>
+        </div>
+        <div class="field-row field-row--two">
+          <div class="field">
+            <label>Date of birth</label>
+            <input type="date" id="userDOB" />
+          </div>
+          <div class="field">
+            <label>Birth time <span class="optional">(optional)</span></label>
+            <input type="time" id="userTime" placeholder="HH:MM" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Birthplace</label>
+            <input type="text" id="userBirthplace" placeholder="City, Country" autocomplete="off" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Current city <span class="optional">(optional)</span></label>
+            <input type="text" id="userCity" placeholder="Where you are now" autocomplete="off" />
+          </div>
+        </div>
+        <button class="btn-primary" id="btnCalculate" onclick="App.calculate()">
+          Reconstruct my timeline →
+        </button>
+        <p class="input__privacy">✦ Nothing is stored. Everything stays with you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: BIRTH NIGHT ===== -->
+  <section id="section-birth" class="section section--birth">
+    <div class="grain-overlay"></div>
+    <div class="birth__container">
+      <div class="birth__label section-label">✦ the night you arrived</div>
+      <h2 class="birth__name" id="birthName">While you took your first breath,</h2>
+      <p class="birth__subline">the city was already moving.</p>
+
+      <div class="birth__grid" id="birthGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="birth__quote">
+        <blockquote id="birthQuote"></blockquote>
+      </div>
+
+      <button class="btn-next" onclick="App.goTo('section-life')">Your life since then →</button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: LIFE COUNTERS ===== -->
+  <section id="section-life" class="section section--life">
+    <div class="grain-overlay"></div>
+    <div class="life__container">
+      <div class="section-label">✦ life since birth</div>
+      <h2>You've already lived through</h2>
+      <p class="life__sub">thousands of ordinary moments that once belonged only to your future.</p>
+
+      <div class="counters__grid" id="countersGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="life__reflection">
+        <p id="lifeReflection"></p>
+      </div>
+
+      <button class="btn-next" onclick="App.goTo('section-pivot')">What comes next →</button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5: PIVOT ===== -->
+  <section id="section-pivot" class="section section--pivot">
+    <div class="grain-overlay"></div>
+    <div class="pivot__container">
+      <div class="pivot__number" id="pivotNumber"></div>
+      <h2 class="pivot__headline">One day—<em>far from now.</em></h2>
+      <p class="pivot__body">
+        You wondered what the world might look like after you're gone.<br/><br/>
+        We can't know when.<br/><br/>
+        But we can imagine something honest:<br/>
+        an ordinary day the world keeps moving.
+      </p>
+      <button class="btn-next" onclick="App.goTo('section-future')">See that ordinary day →</button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6: FUTURE DAY ===== -->
+  <section id="section-future" class="section section--future">
+    <div class="grain-overlay"></div>
+    <div class="future__container">
+      <div class="section-label">✦ an ordinary day, somewhere ahead</div>
+      <h2 id="futureCity">The city wakes.</h2>
+      <div class="future__scene" id="futureScene">
+        <!-- Populated by JS -->
+      </div>
+      <div class="future__insight">
+        <p>Most things may feel ordinary.<br/>But your perspective—the exact version of this world only you could experience—would disappear with you.</p>
+      </div>
+      <button class="btn-next" onclick="App.goTo('section-still')">What may still happen →</button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7: WHAT STILL MAY HAPPEN ===== -->
+  <section id="section-still" class="section section--still">
+    <div class="grain-overlay"></div>
+    <div class="still__container">
+      <div class="section-label">✦ what may still happen before then</div>
+      <h2>The moments that haven't announced themselves yet.</h2>
+      <div class="still__grid" id="stillGrid">
+        <!-- Populated by JS -->
+      </div>
+      <div class="still__quote">
+        <em>"Not every meaningful day announces itself beforehand."</em>
+      </div>
+      <button class="btn-next" onclick="App.goTo('section-ripple')">Your ripple effect →</button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 8: RIPPLE ===== -->
+  <section id="section-ripple" class="section section--ripple">
+    <div class="grain-overlay"></div>
+    <div class="ripple__container">
+      <div class="section-label">✦ your ripple effect</div>
+      <h2 id="rippleHeadline">If you disappeared,</h2>
+      <div class="ripple__items" id="rippleItems">
+        <!-- Populated by JS -->
+      </div>
+      <div class="ripple__close">
+        <p>You are already part of the world's unfinished story.</p>
+      </div>
+      <button class="btn-next" onclick="App.goTo('section-share')">Save your timeline →</button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 9: SHARE / EXPORT ===== -->
+  <section id="section-share" class="section section--share">
+    <div class="grain-overlay"></div>
+    <div class="share__container">
+      <div class="section-label">✦ your timeline</div>
+      <h2 id="shareHeadline">Your life in time.</h2>
+      <div class="share__card" id="shareCard">
+        <!-- Populated by JS -->
+      </div>
+      <div class="share__actions">
+        <button class="btn-action" onclick="Share.downloadCard()">↓ Download card</button>
+        <button class="btn-action btn-action--ghost" onclick="Share.copy()">⧉ Copy link</button>
+        <button class="btn-action btn-action--ghost" onclick="App.restart()">↺ Start again</button>
+      </div>
+      <div class="share__watermark">✦ theworldwhenyoudie.com</div>
+    </div>
+  </section>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar" id="progressBar">
+    <div class="progress-bar__fill" id="progressFill"></div>
+  </div>
+
+  <!-- NAV DOTS -->
+  <nav class="nav-dots" id="navDots"></nav>
+
+  <!-- SCRIPTS -->
+  <script src="js/stars.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/share.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
