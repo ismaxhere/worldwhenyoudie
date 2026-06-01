@@ -162,17 +162,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   text-align: center;
   position: relative;
   overflow: visible;
-  transition: border-color 0.3s, background 0.3s;
+  transition: all 0.4s var(--ease-out);
   cursor: help;
+  backdrop-filter: blur(2px);
 }
 .counter-card:hover {
-  border-color: rgba(200,169,110,0.2);
-  background: rgba(200,169,110,0.03);
+  border-color: rgba(200,169,110,0.35);
+  background: rgba(200,169,110,0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(200,169,110,0.12);
 }
 .counter-card__icon {
   font-size: var(--size-lg);
   display: block;
   margin-bottom: var(--space-sm);
+  transition: transform 0.4s var(--ease-out);
+}
+.counter-card:hover .counter-card__icon {
+  transform: scale(1.1) rotate(5deg);
 }
 .counter-card__value {
   font-family: var(--font-display);
@@ -182,6 +189,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   line-height: 1;
   display: block;
   margin-bottom: 4px;
+  transition: color 0.3s;
+}
+.counter-card:hover .counter-card__value {
+  color: #f5d9a6;
 }
 .counter-card__label {
   font-family: var(--font-mono);
@@ -189,6 +200,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--silver);
+  transition: color 0.3s;
+}
+.counter-card:hover .counter-card__label {
+  color: var(--pearl);
 }
 
 /* ── Counter tooltip ── */
@@ -196,7 +211,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(-8px);
+  transform: translateX(-50%) translateY(-12px) scale(0.95);
   background: rgba(12, 12, 20, 0.95);
   border: 1px solid rgba(200, 169, 110, 0.4);
   border-radius: 4px;
@@ -209,10 +224,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   z-index: 20;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 .counter-card:hover .counter-tooltip {
   opacity: 1;
+  transform: translateX(-50%) translateY(-8px) scale(1);
 }
 .counter-tooltip::after {
   content: '';
